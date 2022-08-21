@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "pressalttomeow",
+  "version": "${version}",
+
+  "name": "Press Alt To Meow",
+  "description": "Press Alt To Meow!",
+  "authors": [
+    "mari_023"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/pressalttomeow",
+    "sources": "https://github.com/Mari023/pressalttomeow"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/pressalttomeow/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "de.mari_023.pressalttomeow.PressAltToMeow"
+    ],
+    "client": [
+      "de.mari_023.pressalttomeow.client.PressAltToMeowClient"
+    ]
+  },
+
+  "depends": {
+    "fabric": "*",
+    "minecraft": "~1.19"
+  }
+}
