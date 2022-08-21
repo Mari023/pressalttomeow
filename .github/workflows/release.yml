@@ -45,7 +45,9 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          loaders: fabric, quilt
+          loaders: |
+            fabric
+            quilt
           game-versions: 1.19
           modrinth-dependencies: |
             fabric-api | depends
