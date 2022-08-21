@@ -10,7 +10,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import org.lwjgl.glfw.GLFW;
 
 public class PressAltToMeowClient implements ClientModInitializer {
@@ -36,6 +35,6 @@ public class PressAltToMeowClient implements ClientModInitializer {
     private void meow() {
         var player = MinecraftClient.getInstance().player;
         if (player == null) return;
-        player.getWorld().playSound(null, player.getBlockPos(), SoundEvents.ENTITY_CAT_AMBIENT, SoundCategory.PLAYERS, 1f, 1f);
+        player.getWorld().playSound(null, player.getBlockPos(), PressAltToMeow.defaultSounds(), SoundCategory.PLAYERS, 1f, 1f);
     }
 }
