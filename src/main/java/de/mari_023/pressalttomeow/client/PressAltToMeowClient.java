@@ -35,6 +35,6 @@ public class PressAltToMeowClient implements ClientModInitializer {
     private void meow() {
         var player = MinecraftClient.getInstance().player;
         if (player == null) return;
-        player.getWorld().playSound(null, player.getBlockPos(), PressAltToMeow.defaultSounds(), SoundCategory.PLAYERS, 1f, 1f);
+        player.getWorld().playSound(player, player.getBlockPos(), PressAltToMeow.defaultSounds(), SoundCategory.PLAYERS, 1f, 1f);
     }
 }
