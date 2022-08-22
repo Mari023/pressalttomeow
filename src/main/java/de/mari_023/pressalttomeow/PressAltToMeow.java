@@ -22,7 +22,7 @@ public class PressAltToMeow implements ModInitializer {
     @Override
     public void onInitialize() {
         ServerPlayNetworking.registerGlobalReceiver(NETWORK_CHANNEL, (server, player, handler, buf, packetSender) -> server.execute(() -> {
-            if (!LAST_MEOW.containsKey(player) || System.currentTimeMillis() - LAST_MEOW.get(player) > 1000) {
+            if (!player.isSpectator() && (!LAST_MEOW.containsKey(player) || System.currentTimeMillis() - LAST_MEOW.get(player) > 1000)) {
                 playSound(player, defaultSounds());
                 LAST_MEOW.put(player, System.currentTimeMillis());
             }
