@@ -39,7 +39,7 @@ jobs:
           name: fabric
           path: download
 
-      - uses: Kir-Antipov/mc-publish@v3.1
+      - uses: Kir-Antipov/mc-publish@v3.2
         with:
           modrinth-id: EjH4M3L1
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
@@ -58,6 +58,7 @@ jobs:
             1.19
             1.19.1
             1.19.2
+            1.19.3
           modrinth-dependencies: |
             fabric-api | depends
           java: 17
