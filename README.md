@@ -6,4 +6,4 @@ Why doesn't Minecraft have one too?
 Well, now it has!
 
 If only the client has this mod installed, only the client will hear the sound
-If it is installed on the server too, all other players in range will hear the sound too (even when they don#t have the mod installed)
+If it is installed on the server too, all other players in range will hear the sound too (even when they don't have the mod installed)
