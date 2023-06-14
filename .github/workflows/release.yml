@@ -8,11 +8,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: adopt
           java-version: 17
 
       - name: Grant execute permission for gradlew
@@ -24,7 +25,7 @@ jobs:
           TAG: ${{ github.event.release.tag_name }}
 
       - name: Upload a fabric build
-        uses: actions/upload-artifact@v2.2.2
+        uses: actions/upload-artifact@v3
         with:
           path: build/libs/**.jar
           name: fabric
@@ -39,7 +40,7 @@ jobs:
           name: fabric
           path: download
 
-      - uses: Kir-Antipov/mc-publish@v3.2
+      - uses: Kir-Antipov/mc-publish@v3.3
         with:
           modrinth-id: EjH4M3L1
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
@@ -49,20 +50,10 @@ jobs:
             fabric
             quilt
           game-versions: |
-            1.16.5
-            1.17
-            1.17.1
-            1.18
-            1.18.1
-            1.18.2
-            1.19
-            1.19.1
-            1.19.2
-            1.19.3
+            1.20.1
           modrinth-dependencies: |
             fabric-api | depends
           java: 17
           version: ${{ github.event.release.tag_name }}-fabric
           name: ${{ github.event.release.tag_name }}-fabric
-          files-primary: download/!(*-@(dev|dev-shadow)).jar
-          files-secondary: ""
+          files: download/!(*-@(dev|dev-shadow)).jar
