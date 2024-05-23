@@ -25,7 +25,7 @@ jobs:
           TAG: ${{ github.event.release.tag_name }}
 
       - name: Upload a fabric build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: build/libs/**.jar
           name: fabric
