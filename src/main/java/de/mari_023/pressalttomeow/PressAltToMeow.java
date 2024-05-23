@@ -2,8 +2,10 @@ package de.mari_023.pressalttomeow;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -15,19 +17,21 @@ import java.util.Random;
 import java.util.WeakHashMap;
 
 public class PressAltToMeow implements ModInitializer {
-    public static final ResourceLocation NETWORK_CHANNEL = new ResourceLocation("pressalttomeow", "m");
     private static final WeakHashMap<ServerPlayer, Long> LAST_MEOW = new WeakHashMap<>();
     private static final Random RANDOM = new Random();
 
     @Override
     public void onInitialize() {
-        ServerPlayNetworking.registerGlobalReceiver(NETWORK_CHANNEL, (server, player, handler, buf, packetSender) -> server.execute(() -> {
+        PayloadTypeRegistry.playC2S().register(MeowPayload.TYPE, MeowPayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(MeowPayload.TYPE, MeowPayload.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(MeowPayload.TYPE, (payload, context) -> context.player().getServer().execute(() -> {
+            var player = context.player();
             if (!player.isSpectator() && (!LAST_MEOW.containsKey(player) || System.currentTimeMillis() - LAST_MEOW.get(player) > 1000)) {
                 playSound(player, defaultSounds());
                 LAST_MEOW.put(player, System.currentTimeMillis());
             }
         }));
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> ServerPlayNetworking.send(handler.player, PressAltToMeow.NETWORK_CHANNEL, PacketByteBufs.create()));
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> ServerPlayNetworking.send(handler.player, new MeowPayload()));
     }
 
     private static void playSound(ServerPlayer player, SoundEvent soundEvent) {
